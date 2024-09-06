@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.33" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.33" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.33" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.33" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.33" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.33">
@@ -22,6 +23,11 @@
   <ItemGroup>
     <ProjectReference Include="..\FruitSA_Common\FruitSA_Common.csproj" />
     <ProjectReference Include="..\FruitSA_Data\FruitSA_DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Views\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>

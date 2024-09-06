@@ -11,22 +11,36 @@ using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnection")
-    ));
+  builder.Configuration.GetConnectionString("DefaultConnection")
+  ));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+  .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<ICategory_Business, Category_Business>();
 builder.Services.AddScoped<IProduct_Business, Product_Business>();
+
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = $"/Identity/Account/Login";
+    options.LogoutPath = $"/Identity/Account/Logout";
+    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+});
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(100);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -43,10 +57,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
+app.UseSession();
+app.MapRazorPages();
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+  name: "default",
+  pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
