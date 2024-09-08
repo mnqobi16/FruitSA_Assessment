@@ -1,0 +1,50 @@
+﻿<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-8">
+            <h2 class="text-primary">Product List</h2>
+            @using (Html.BeginForm("UploadProductsExcel", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="form-group">
+                    <label for="excelFile">Upload Excel File:</label>
+                    <input type="file" name="file" id="excelFile" class="form-control-file">
+                </div>
+
+                <button type="submit" class="btn btn-primary"><i class="bi bi-upload"></i> &nbsp Upload</button>
+            }
+
+        </div>
+        <div class="col-4 d-flex justify-content-end align-items-center">
+            <span class="mr-5">
+                <a asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i>&nbsp; Create New Product
+                </a>
+            </span>
+        </div>
+    </div>
+
+    <br /><br />
+
+    <table id="tblData" class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Product Code</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Created By</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th></th>
+            </tr>
+        </thead>
+        <!-- Table body content here -->
+    </table>
+
+    <a asp-controller="Product" asp-action="DownloadProductsExcel" class="btn btn-success">
+        <i class="bi bi-download"></i> &nbsp; Download Products (Excel)
+    </a>
+</div>
+
+@section Scripts {
+    <script src="~/js/product.js"></script>
+}

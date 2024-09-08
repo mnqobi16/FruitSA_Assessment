@@ -8,8 +8,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using OfficeOpenXml;
+using FruitSA_Assessment.DataAccess.DbInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Set EPPlus license context
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -25,6 +30,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<ICategory_Business, Category_Business>();
 builder.Services.AddScoped<IProduct_Business, Product_Business>();
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+
 
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
@@ -56,15 +63,25 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+SeedDatabase();
 app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.UseSession();
 app.MapRazorPages();
+
 app.MapControllerRoute(
   name: "default",
   pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}

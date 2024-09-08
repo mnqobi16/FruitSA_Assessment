@@ -1,8 +1,39 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<FruitSA_Models.Product>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    
+@if (Model != null && Model.Any())
+{
+<div class="row pb-3">
+    @foreach (var product in Model)
+    {
+        <div class="col-lg-3 col-md-6">
+            <div class="row p-2">
+                <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px;">
+                    <div class="card">
+                        <img src="@product.ImagePath" class="card-img-top rounded" />
+
+                        <div class="card-body">
+                            <div class="pl-1">
+                                <p class="card-title h5 text-primary">@product.ProductName</p>
+                                <p class="card-title text-info">Product Code <b>@product.ProductCode</b></p>
+                            </div>
+                            <div class="pl-1">
+                                <p>As low as: <span style="font-size: 20px; font-weight: 700;">R @product.Price.ToString("0.00")</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="/" class="btn btn-primary form-control">
+                            Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
+}
+else
+{
+    <p>No products available at this time.</p>
+}
