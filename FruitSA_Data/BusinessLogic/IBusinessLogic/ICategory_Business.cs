@@ -11,8 +11,9 @@ namespace FruitSA_DataAccess.BusinessLogic.IBusinessLogic
     {
         public Task<CategoryDTO> Create(CategoryDTO objDTO);
         public Task<CategoryDTO> Update(CategoryDTO objDTO);
+        public Task<CategoryDTO> GetByCategoryCode(string categoryCode);
         public Task<int> Delete(int id);
-        public Task<CategoryDTO> Get(int id);
-        public Task<IEnumerable<CategoryDTO>> GetAll();
+        public Task<CategoryDTO> Get(int id, string name = null, bool? isActive = null);
+        public Task<IEnumerable<CategoryDTO>> GetAll(string name = null, bool? isActive = null);
     }
 }

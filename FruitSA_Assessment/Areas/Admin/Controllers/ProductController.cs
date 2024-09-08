@@ -3,18 +3,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System;
 using FruitSA_DataAccess.BusinessLogic.IBusinessLogic;
 using FruitSA_Assessment.ViewModels;
-using OfficeOpenXml;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using FruitSA_Data.Context;
+using OfficeOpenXml;
 
 namespace FruitSA_Assessment.Areas.Admin.Controllers
 {
@@ -34,15 +32,10 @@ namespace FruitSA_Assessment.Areas.Admin.Controllers
             _context = db;
             _autoMapper = mapper;
         }
-
-
-
         public IActionResult Index()
         {
             return View();
         }
-
-
 
         [HttpGet]
         public async Task<IActionResult> Upsert(int? id)
@@ -166,7 +159,6 @@ namespace FruitSA_Assessment.Areas.Admin.Controllers
         }
 
 
-
         private async Task<string> GenerateProductCode()
         {
             string yearMonth = DateTime.Now.ToString("yyyyMM");
@@ -193,51 +185,48 @@ namespace FruitSA_Assessment.Areas.Admin.Controllers
             string productCode = $"{yearMonth}-{sequenceNumber.ToString("D3")}";
             return productCode;
         }
-        public async Task<IActionResult> DownloadProductsExcel()
-        {
-            // Set the license context
-            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+        //public IActionResult DownloadProductsExcel()
+        //{
+        //    // Set the license context
+        //    ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
 
+        //    // Retrieve data from the database
+        //    var products = product_Business.GetAll();
 
+        //    // Project the data and format the dates
+        //    var formattedData = products.Select(p => new
+        //    {
+        //        p.ProductId,
+        //        p.ProductCode,
+        //        p.Name,
+        //        p.Description,
+        //        p.CategoryId,
+        //        p.Price,
+        //        p.ImageUrl,
+        //        p.Username,
+        //        CreatedDate = p.CreatedDate.ToString("dd MMM yyyy, HH:mm:ss"),
+        //        UpdatedAt = p.UpdatedAt != null ? p.UpdatedAt.Value.ToString("dd MMM yyyy, HH:mm:ss") : "N/A"
+        //    });
 
-            // Retrieve data from the database
-            var products = await product_Business.GetAll();
+        //    // Create Excel package
+        //    using (ExcelPackage excelPackage = new ExcelPackage())
+        //    {
+        //        // Create worksheet
+        //        ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Products");
 
+        //        // Load data from collection
+        //        worksheet.Cells.LoadFromCollection(formattedData, true);
 
+        //        // Auto-fit columns
+        //        worksheet.Cells.AutoFitColumns();
 
-            // Project the data and format the dates
-          
+        //        // Convert package to bytes
+        //        byte[] fileBytes = excelPackage.GetAsByteArray();
 
-
-            // Create Excel package
-            using (ExcelPackage excelPackage = new ExcelPackage())
-            {
-                // Create worksheet
-                ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets.Add("Products");
-
-
-
-                // Load data from collection
-                worksheet.Cells.LoadFromCollection(products, true);
-
-
-
-                // Auto-fit columns
-                worksheet.Cells.AutoFitColumns();
-
-
-
-                // Convert package to bytes
-                byte[] fileBytes = excelPackage.GetAsByteArray();
-
-
-
-                // Return Excel file
-                return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Products.xlsx");
-            }
-        }
-
-
+        //        // Return Excel file
+        //        return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Products.xlsx");
+        //    }
+        //}
 
         [HttpPost]
         public async Task<IActionResult> UploadProductsExcel(IFormFile file)
@@ -306,5 +295,35 @@ namespace FruitSA_Assessment.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        #region API CALLS
+        //[HttpGet]
+        //public IActionResult GetAll()
+        //{
+        //    var productList = product_Business.GetAll(includeProperties: "Category");
+        //    return Json(new { data = productList });
+        //}
+        ////POST
+        //[HttpDelete]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    var obj = await product_Business.Get(id);
+        //    obj.
+        //    if (obj == null)
+        //    {
+        //        return Json(new { success = false, message = "Error while deleting" });
+        //    }
+
+        //    var oldImagePath = Path.Combine(_hostEnvironment.WebRootPath, obj.ImagePath.TrimStart('\\'));
+        //    if (System.IO.File.Exists(oldImagePath))
+        //    {
+        //        System.IO.File.Delete(oldImagePath);
+        //    }
+
+        //    product_Business.Delete(id);
+        //    return Json(new { success = true, message = "Product Deleted" });
+
+        //}
+        #endregion
     }
 }

@@ -2,7 +2,16 @@
     <div class="row pt-4">
         <div class="col-8">
             <h2 class="text-primary">Product List</h2>
-           
+            @using (Html.BeginForm("UploadProductsExcel", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="form-group">
+                    <label for="excelFile">Upload Excel File:</label>
+                    <input type="file" name="file" id="excelFile" class="form-control-file">
+                </div>
+
+                <button type="submit" class="btn btn-primary"><i class="bi bi-upload"></i> &nbsp Upload</button>
+            }
+
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
             <span class="mr-5">
@@ -31,27 +40,9 @@
         <!-- Table body content here -->
     </table>
 
-    <div class="row">
-        <div class="col-md-6">
-            @using (Html.BeginForm("UploadProductsExcel", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                <div class="form-group">
-                    <label for="excelFile">Upload Excel File:</label>
-                    <input type="file" name="file" id="excelFile" class="form-control-file">
-                    <button type="submit" class="btn btn-primary"><i class="bi bi-upload"></i>&nbsp; Upload</button>
-                </div>
-                
-            }
-        </div>
-        <div class="col-md-6 d-flex align-items-center">
-            <a asp-controller="Product" asp-action="DownloadProductsExcel" class="btn btn-success ml-3">
-                <i class="bi bi-download"></i>&nbsp; Download Products (Excel)
-            </a>
-        </div>
-    </div>
-
-
-    
+    <a asp-controller="Product" asp-action="DownloadProductsExcel" class="btn btn-success">
+        <i class="bi bi-download"></i> &nbsp; Download Products (Excel)
+    </a>
 </div>
 
 @section Scripts {

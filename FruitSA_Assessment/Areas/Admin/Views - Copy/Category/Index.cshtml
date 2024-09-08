@@ -1,7 +1,8 @@
-﻿@model IEnumerable<CategoryDTO>
+﻿@model IEnumerable<FruitSA_Models.CategoryDTO>
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container p-3">
@@ -34,9 +35,6 @@
                 </th>
                 <th>
                     Updated On
-                </th>
-                <th>
-                    Action
                 </th>
             </tr>
         </thead>
