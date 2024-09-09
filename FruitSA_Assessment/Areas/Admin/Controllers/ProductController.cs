@@ -161,7 +161,7 @@ namespace FruitSA_Assessment.Areas.Admin.Controllers
             // Await the result of GetAll before applying LINQ
             var products = await _product_Business.GetAll();
 
-            // Fetch the latest product code with the given yearMonth prefix
+            
             var latestProduct = products.Where(p => p.ProductCode.StartsWith(yearMonth))
                                         .OrderByDescending(p => p.ProductCode)
                                         .FirstOrDefault();
@@ -309,8 +309,6 @@ namespace FruitSA_Assessment.Areas.Admin.Controllers
             {
                 return Json(new { success = false, message = "Product not found" });
             }
-
-            // Handle image deletion if path is provided
             if (!string.IsNullOrEmpty(obj.ImagePath))
             {
                 var oldImagePath = Path.Combine(_hostEnvironment.WebRootPath, obj.ImagePath.TrimStart('\\'));
@@ -320,7 +318,6 @@ namespace FruitSA_Assessment.Areas.Admin.Controllers
                 }
             }
 
-            // Perform the delete operation
             await _product_Business.Delete(id);
 
             return Json(new { success = true, message = "Product deleted successfully" });

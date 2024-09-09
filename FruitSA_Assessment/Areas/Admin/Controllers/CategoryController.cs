@@ -49,7 +49,6 @@ namespace FruitSA_Assessment.Areas.Admin.Controllers
                 var existingCategory = await _category_Business.GetByCategoryCode(obj.CategoryCode);
                 if (existingCategory != null)
                 {
-                    // If the category code already exists, add a model error and return the view
                     ModelState.AddModelError("CategoryCode", "A category with this code already exists.");
                     return View(obj);
                 }
