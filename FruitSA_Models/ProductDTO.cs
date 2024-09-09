@@ -33,7 +33,7 @@ namespace FruitSA_Models
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         [ValidateNever]
-        public CategoryDTO CategoryDTO { get; set; }
+        public CategoryDTO Category { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string Username { get; set; } = string.Empty;

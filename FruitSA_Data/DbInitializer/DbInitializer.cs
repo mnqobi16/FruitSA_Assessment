@@ -45,7 +45,7 @@ namespace FruitSA_Assessment.DataAccess.DbInitializer
                 _roleManager.CreateAsync(new IdentityRole(CreateRoles.Role_Admin)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(CreateRoles.Role_Customer)).GetAwaiter().GetResult();
 
-                if (_datadase.Users.FirstOrDefault(u => u.Email == "admin@gmail") == null)
+                if (_datadase.Users.FirstOrDefault(u => u.Email == "admin@gmail.com") == null)
                 {
                     _userManager.CreateAsync(new ApplicationUser
                     {

@@ -1,7 +1,9 @@
-﻿using FruitSA_Data.Context;
+﻿using FruitSA_Common;
+using FruitSA_Data.Context;
 using FruitSA_DataAccess.BusinessLogic;
 using FruitSA_DataAccess.BusinessLogic.IBusinessLogic;
 using FruitSA_Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 namespace FruitSA_Assessment.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly ICategory_Business _category_Business;

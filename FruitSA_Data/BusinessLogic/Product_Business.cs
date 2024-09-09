@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,29 +40,63 @@ namespace FruitSA_DataAccess.BusinessLogic
             if (obj != null)
             {
                 _context.Products.Remove(obj);
-                return await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+
+                return 1;
             }
             return 0;
         }
 
-
-
-        public async Task<ProductDTO> Get(int id)
+        public async Task<ProductDTO> Get(Expression<Func<Product, bool>> filter, string? includeProperties = null, bool tracked = true)
         {
-            var obj = await _context.Products.FirstOrDefaultAsync(u => u.ProductId == id);
+            // Use tracking or no-tracking based on the 'tracked' parameter
+            IQueryable<Product> query = tracked ? _context.Products : _context.Products.AsNoTracking();
 
+            // Apply the provided filter expression
+            query = query.Where(filter);
 
+            // Include related entities if specified
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
 
+            // Fetch the product that matches the filter
+            var obj = await query.FirstOrDefaultAsync();
+
+            // Map and return the result as ProductDTO
             if (obj != null)
             {
                 return _autoMapper.Map<Product, ProductDTO>(obj);
             }
+
+            // Return a new ProductDTO if no product is found
             return new ProductDTO();
         }
-        public async Task<IEnumerable<ProductDTO>> GetAll()
+
+
+        public async Task<IEnumerable<ProductDTO>> GetAll(Expression<Func<Product, bool>>? filter = null, string? includeProperties = null)
         {
-            var obj = await _context.Products.ToListAsync();
-            return _autoMapper.Map<IEnumerable<ProductDTO>>(obj);
+            IQueryable<Product> query = _context.Products;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (includeProperties != null)
+            {
+                foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProp);
+                }
+            }
+
+            var products = await query.ToListAsync();
+            return _autoMapper.Map<IEnumerable<ProductDTO>>(products);
         }
 
 
@@ -78,9 +113,9 @@ namespace FruitSA_DataAccess.BusinessLogic
                 objFromDb.Username = objDTO.Username;
                 objFromDb.CategoryId = objDTO.CategoryId;
 
-                if (objFromDb.ImagePath != null)
+                if (objDTO.ImagePath != null)
                 {
-                    objFromDb.ImagePath = objFromDb.ImagePath;
+                    objFromDb.ImagePath = objDTO.ImagePath;
                 }
 
                 objFromDb.UpdateAt = DateTime.Now;
