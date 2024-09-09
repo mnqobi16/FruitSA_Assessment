@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FruitSA_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240908204244_init")]
+    [Migration("20240909074024_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

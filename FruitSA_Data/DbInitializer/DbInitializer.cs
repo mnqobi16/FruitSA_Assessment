@@ -80,9 +80,10 @@ namespace FruitSA_Assessment.DataAccess.DbInitializer
                 
                 var product = new List<Product>
                 {
-                    new Product { ProductName = "Apple", ProductCode = "2024-091", CategoryId = 1,Description = "Apple", ImagePath = "", Price = 2030, Username = "admin@gmail.com", CreatedAt = DateTime.Now, UpdateAt = DateTime.Now },
-                    new Product { ProductName = "Cabbage", ProductCode = "2024-092", CategoryId = 2,Description = "Orange", ImagePath = "", Price = 200, Username = "tester@gmail.com", CreatedAt = DateTime.Now.AddDays(-12), UpdateAt = null },
-                    new Product { ProductName = "Sausage", ProductCode = "2024-093", CategoryId = 3,Description = "Banana", ImagePath = "", Price = 400, Username = "systemAdmin@gmail.com", CreatedAt = DateTime.Now, UpdateAt = DateTime.Now },
+                    new Product { ProductName = "Apple", ProductCode = "202409-091", CategoryId = 1,Description = "Apple", ImagePath = "\\images\\products\\Apple_Fruit.png", Price = 2030, Username = "admin@gmail.com", CreatedAt = DateTime.Now, UpdateAt = DateTime.Now },
+                    new Product { ProductName = "Cabbage", ProductCode = "202409-092", CategoryId = 2,Description = "Cabbage Veg", ImagePath = "\\images\\products\\Cabbage.png", Price = 200, Username = "tester@gmail.com", CreatedAt = DateTime.Now.AddDays(-12), UpdateAt = null },
+                    new Product { ProductName = "Meat", ProductCode = "202409-093", CategoryId = 3,Description = "Meat", ImagePath = "\\images\\products\\GarmonSteak.png", Price = 400, Username = "systemAdmin@gmail.com", CreatedAt = DateTime.Now, UpdateAt = DateTime.Now },
+                    new Product { ProductName = "Avocado", ProductCode = "202409-094", CategoryId = 2,Description = "Avocado", ImagePath = "\\images\\products\\Avocado.png", Price = 650, Username = "systemAdmin@gmail.com", CreatedAt = DateTime.Now, UpdateAt = DateTime.Now },
 
                 };
 
