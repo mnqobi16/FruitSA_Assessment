@@ -14,16 +14,23 @@ Technologies Used
 
 
 Language: C#
+
 Frameworks:
 Backend: ASP.NET Core Web API
+
 Frontend: ASP.NET MVC Core with Razor Pages
+
 Frontend Libraries:
 JavaScript/TypeScript
 Bootstrap (for responsive design)
+
 Database: SQL Server or MySQL (configurable)
+
 ORM: Entity Framework Core
 Version Control: GitHub (Repository link)
+
 Middleware: ASP.NET Core Web API
+
 Authentication: ASP.NET Core Identity (for user registration and login)
 
 Getting Started
@@ -37,8 +44,12 @@ https://github.com/mnqobi16/FruitSA_Assessment.git
 3.	Add Migrations:
 
 Open Package Manager Console in Visual Studio, and make sure to choose FruitSA.DataAccess as the Default Project and run the following command: 
+
 •	add-migration "First Migrations" 
+
 •	update-database
+
+
 4.	Build and Run the Application: Build the solution using Visual Studio. Run the application .
 
 5.	Register on the system by clicking the register link on the top menu and putting your details and the Application should log you in .
@@ -46,11 +57,14 @@ Open Package Manager Console in Visual Studio, and make sure to choose FruitSA.D
 
 6.	Upload Products using Excel
 
-7.	
-a. go to the Files of this Application repo and find excel document named Products.xlsx
-b. Login to the application And Click Admin Action > Product and upload the Excel file and press the Upload button at the bottom of the page.
-c. then go to home page to seen uploaded Product from excel
-d. You Can also download products to excel format by clicking the Button at the bottom of the page 
+
+  a. go to the Files of this Application repo and find excel document named Products.xlsx
+
+  b. Login to the application And Click Admin Action > Product and upload the Excel file and press the Upload button at the bottom of the page.
+
+  c. then go to home page to seen uploaded Product from excel
+
+  d. You Can also download products to excel format by clicking the Button at the bottom of the page 
 
 8.	You can Create, Update and Delete products on Product Page 
 
